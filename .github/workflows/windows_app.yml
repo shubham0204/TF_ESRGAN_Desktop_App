@@ -20,5 +20,35 @@ jobs:
       - name: Build the executable with PyInstaller
         run: pyinstaller --clean main.spec
 
+      - name: Upload executable as artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: windows_executable
+          path: dist/main.exe
+
+      - name: Bump version
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create a new release
+        uses: actions/create-release@v1
+        id: create_release
+        with:
+          draft: false
+          prerelease: false
+          release_name: Windows App - ${{ steps.tag_version.outputs.new_tag } }
+          tag_name: ${{ steps.tag_version.outputs.new_tag } }
+          body_path: CHANGELOG.md
+
+      - name: Upload executable to release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: adad
+          asset_name: adasda
 
 
