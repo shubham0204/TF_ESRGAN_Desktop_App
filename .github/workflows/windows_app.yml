@@ -50,7 +50,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: adad
-          asset_name: adasda
+          asset_path: dist/main.exe
+          asset_name: windows_app.exe
+          asset_content_type: application/vnd.microsoft.portable-executable
 
 
