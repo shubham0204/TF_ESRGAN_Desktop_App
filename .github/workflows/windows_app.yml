@@ -38,8 +38,8 @@ jobs:
         with:
           draft: false
           prerelease: false
-          release_name: Windows App - ${{ steps.tag_version.outputs.new_tag } }
-          tag_name: ${{ steps.tag_version.outputs.new_tag } }
+          release_name: Windows App - ${{ steps.tag_version.outputs.new_tag }}
+          tag_name: ${{ steps.tag_version.outputs.new_tag }}
           body_path: CHANGELOG.md
 
       - name: Upload executable to release
