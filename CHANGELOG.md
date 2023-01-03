@@ -1,1 +1,1 @@
-- Created `requirements.txt` with `pipreqs`
+- Fixed `==` in `requirements.txt`
