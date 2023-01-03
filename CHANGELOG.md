@@ -1,1 +1,1 @@
-- Fixed `==` in `requirements.txt`
+- Added `pyinstaller` in `requirements.txt`
