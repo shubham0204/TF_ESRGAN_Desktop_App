@@ -58,22 +58,6 @@ class App( widgets.QMainWindow ):
         image = ImageQt.ImageQt( resized_image )
         label.setPixmap(gui.QPixmap.fromImage(image))
 
-    def display_message( self , title , icon , message , button ):
-        warning = widgets.QMessageBox()
-        warning.setIcon( icon )
-        warning.setWindowTitle( title )
-        warning.setText( message )
-        warning.setStandardButtons( button )
-        warning.exec()
-
-
-def resolve_path(path):
-    if getattr(sys, "frozen", False):
-        resolved_path = os.path.abspath(os.path.join(sys._MEIPASS, path))
-    else:
-        resolved_path = os.path.abspath(os.path.join(os.getcwd(), path))
-    return resolved_path
-
 
 app = widgets.QApplication(sys.argv)
 window = App()
