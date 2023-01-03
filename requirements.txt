@@ -1,5 +1,4 @@
 numpy==1.24.0            ;
 Pillow==9.4.0            ;
 PySide6==6.4.1           ;
-tensorflow-cpu==2.11.0   ; sys_platform=='win32'
-tensorflow-cpu-aws==2.11.0 ; sys_platform=='linux'
+tensorflow==2.11.0       ;
