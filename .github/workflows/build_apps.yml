@@ -14,6 +14,11 @@ jobs:
         with:
           python-version: "3.10"
 
+      - name: Create a new virtual environment
+        run: |
+          python -m venv app_env
+          .\app_env\Scripts\activate.bat
+
       - name: Install dependencies
         run: pip install -r requirements.txt
 

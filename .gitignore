@@ -4,3 +4,5 @@ venv
 dist
 __pycache__
 torch_models
+venv_tf
+venv_pytorch

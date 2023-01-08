@@ -26,7 +26,7 @@ exe = EXE(
     a.zipfiles,
     a.datas,
     [],
-    name='main',
+    name='ESRGAN TensorFlow',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
