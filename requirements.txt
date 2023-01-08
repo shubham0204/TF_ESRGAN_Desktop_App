@@ -3,3 +3,4 @@ Pillow==9.4.0
 PySide6==6.4.1
 RealESRGAN @ git+https://github.com/sberbank-ai/Real-ESRGAN.git@362a0316878f41dbdfbb23657b450c3353de5acf
 torch==1.13.1
+pyinstaller==5.7.0
