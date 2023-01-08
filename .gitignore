@@ -3,3 +3,4 @@ venv
 .idea
 dist
 __pycache__
+torch_models

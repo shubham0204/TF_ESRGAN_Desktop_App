@@ -21,6 +21,7 @@ class App( widgets.QMainWindow ):
         self.ui.setupUi(self)
 
         self.setWindowTitle("Super Resolution with ESRGANs")
+        self.setWindowIcon(gui.QIcon('app_icon.ico'))
         self.statusBar().setSizeGripEnabled(False)
         self.setMaximumWidth( self.geometry().width())
         self.setMaximumHeight( self.geometry().height())
@@ -30,6 +31,7 @@ class App( widgets.QMainWindow ):
         self.ui.super_resolve.clicked.connect(self.on_super_resolve_click)
 
         self.loading_thread = None
+        self.inference_thread = None
         self.start_tf_model_loading()
 
         self.selected_image = None
@@ -50,24 +52,31 @@ class App( widgets.QMainWindow ):
         if selected_file_path is not None:
             self.converted_image.save( os.path.join( selected_file_path , 'img.png' ) )
 
-
     def on_super_resolve_click(self):
         if self.loading_thread.is_alive():
             return
 
-        low_resolution_image = np.expand_dims( self.selected_image , axis=0 )
-        low_resolution_image = tf.cast( low_resolution_image , tf.float32 )
+        self.ui.super_resolve.setText("Processing...")
+        self.setWindowTitle("Processing...")
+        self.ui.super_resolve.repaint()
+
+        self.inference_thread = threading.Thread(target=self.perform_inference, name='Inference')
+        self.inference_thread.start()
+
+    def perform_inference(self):
+        low_resolution_image = np.expand_dims(self.selected_image, axis=0)
+        low_resolution_image = tf.cast(low_resolution_image, tf.float32)
 
         self.ui.super_resolve.setText("Processing...")
         self.ui.super_resolve.repaint()
 
-        output = self.model( low_resolution_image ).numpy()[0]
-        output = ( output - output.min() ) / ( output.max() - output.min() )
-        output *= 255
-        self.converted_image = Image.fromarray( output.astype( np.uint8 ) )
-        self.set_image( self.converted_image , self.ui.output_img )
+        output = self.model(low_resolution_image)
+        output = tf.clip_by_value( output , 0 , 255 ).numpy()[0]
+        self.converted_image = Image.fromarray(output.astype(np.uint8))
+        self.set_image(self.converted_image, self.ui.output_img)
 
-        self.ui.super_resolve.setText( "Super Resolve" )
+        self.ui.super_resolve.setText("Super Resolve")
+        self.setWindowTitle("Super Resolution with ESRGANs")
         self.ui.super_resolve.repaint()
 
 
@@ -80,6 +89,7 @@ class App( widgets.QMainWindow ):
     def start_tf_model_loading(self):
         self.loading_thread = threading.Thread( target=self.load_tf_model , name="TF Model Loading" )
         self.loading_thread.start()
+
 
     def load_tf_model( self ):
         self.model = hub.load( "https://tfhub.dev/captain-pool/esrgan-tf2/1" )
