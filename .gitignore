@@ -3,6 +3,7 @@ venv
 .idea
 dist
 __pycache__
-torch_models
+torch_models/RealESRGAN_x4.pth
+torch_models/RealESRGAN_x8.pth
 venv_tf
 venv_pytorch
