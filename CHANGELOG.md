@@ -1,1 +1,1 @@
-- Image gets saved with the name of the input image
+- Added `tensorflow_hub` in `requirements.txt`
