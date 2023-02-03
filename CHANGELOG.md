@@ -1,1 +1,1 @@
-- Added `tensorflow_hub` in `requirements.txt`
+- Updated `README.md`

@@ -6,3 +6,5 @@ __pycache__
 torch_models
 venv_tf
 venv_pytorch
+onnx_conversion.py
+real_esrgan_x2.ptl
